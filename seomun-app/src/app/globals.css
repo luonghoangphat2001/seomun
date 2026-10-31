@@ -1,0 +1,280 @@
+@import 'tailwindcss';
+@import 'react-day-picker/style.css';
+
+:root {
+  --background: var(--color-gray-00);
+  --foreground: var(--color-text-main);
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* background */
+  --color-background-brand: var(--color-primary-500);
+  --color-background-gray: var(--color-text-third);
+
+  /* gray */
+  --color-gray-900: #232527;
+  --color-gray-800: #444444;
+  --color-gray-700: #636363;
+  --color-gray-600: #777777;
+  --color-gray-500: #a0a0a0;
+  --color-gray-400: #af9e88;
+  --color-gray-300: #e2e2e2;
+  --color-gray-200: #dcd7cc;
+  --color-gray-100: #eeece6;
+  --color-gray-50: #fafafa;
+  --color-gray-00: #fefefe;
+
+  --color-primary-50: #fefbec;
+  --color-primary-100: #fdf3c8;
+  --color-primary-200: #fae78d;
+  --color-primary-500: #efa211;
+  --color-primary-600: #d47c0b;
+  --color-primary: #f5bf20;
+
+  /* text */
+  --color-text-main: #2b231f;
+  --color-text-secondary: #796355;
+  --color-text-third: #c6bcab;
+  --color-text-foreground: #fefefe;
+  --color-text-brand: #efa211;
+  --color-text-brand-soft: #fdf3c8;
+  --color-text-brand-secondary: #b0580d;
+  --color-text-disabled: #c6bcab;
+
+  /* border */
+  --color-border-light: #f9f8f6;
+  --color-border-soft: #dcd7cc;
+  --color-border-brand: #f5bf20;
+
+  --color-icon-brand: #f5bf20;
+  /* fill */
+  --color-fill-brand: #f5bf20;
+  --color-fill-brand-soft: #fefbec;
+  --color-fill-soft: #eeece6;
+  --color-fill-light: #f9f8f6;
+  --color-fill-disabled: #dcd7cc;
+
+  /* error */
+  --color-error: #eb5757;
+
+  --font-noto-sans: var(--font-noto-sans), sans-serif;
+}
+
+@layer base {
+  body {
+    @apply text-text-main;
+  }
+}
+
+@layer components {
+  .vertical-seperator {
+    @apply bg-border-soft h-5 w-px;
+  }
+
+  .mobile-seperator {
+    @apply bg-border-light -mx-4 h-3 md:hidden;
+  }
+}
+
+/* Title */
+@utility title-40 {
+  @apply font-noto-sans text-[40px] leading-[48px] font-bold;
+}
+
+@utility title-32 {
+  @apply font-noto-sans text-[32px] leading-[40px] font-bold;
+}
+
+@utility title-24 {
+  @apply font-noto-sans text-[24px] leading-[32px] font-semibold;
+}
+
+@utility title-20 {
+  @apply font-noto-sans text-[20px] leading-[28px] font-semibold;
+}
+
+@utility title-18 {
+  @apply font-noto-sans text-[18px] leading-[26px] font-semibold;
+}
+
+@utility title-16 {
+  @apply font-noto-sans text-[16px] leading-[24px] font-semibold;
+}
+
+@utility title-14 {
+  @apply font-noto-sans text-[14px] leading-[20px] font-semibold;
+}
+
+/* Body */
+@utility body-18 {
+  @apply font-noto-sans text-[18px] leading-[28px] font-normal;
+}
+
+@utility body-16 {
+  @apply font-noto-sans text-[16px] leading-[24px] font-normal;
+}
+
+@utility body-14 {
+  @apply font-noto-sans text-[14px] leading-[20px] font-normal;
+}
+
+/* Button */
+@utility button-15 {
+  @apply font-noto-sans text-[15px] leading-[20px] font-semibold;
+}
+
+@utility button-13 {
+  @apply font-noto-sans text-[13px] leading-[20px] font-medium;
+}
+
+/* Input */
+@utility input-15 {
+  @apply font-noto-sans text-[15px] leading-[20px] font-normal;
+}
+
+/* Caption */
+@utility caption-12 {
+  @apply font-noto-sans text-[12px] leading-[16px] font-normal;
+}
+
+@utility global-padding {
+  @apply mx-auto w-full max-w-[1504px] px-4 md:px-8;
+}
+
+@utility point-40 {
+  @apply font-noto-sans text-[40px] leading-[130%] font-extrabold;
+}
+
+@utility point-32 {
+  @apply font-noto-sans text-[32px] leading-[130%] font-extrabold;
+}
+
+@utility point-24 {
+  @apply font-noto-sans text-[24px] leading-[130%] font-bold;
+}
+
+@utility point-20 {
+  @apply font-noto-sans text-[20px] leading-[130%] font-semibold;
+}
+
+@utility mobile-button {
+  @apply border-border-soft fixed bottom-0 left-0 z-50 w-full border-t bg-white p-4 pb-6;
+
+  box-shadow:
+    0px -4px 20px 0px #0000001a,
+    -2px -31px 30px 0px #00000005;
+
+  @apply md:static md:z-auto md:w-auto md:border-none md:p-0 md:shadow-none;
+}
+
+@utility modal-title {
+  @apply title-18 md:title-24 md:px-6 md:pt-2.5 md:pb-0.5;
+}
+
+@utility modal-body {
+  @apply border-border-soft border-y px-4 py-6 max-md:border-none md:px-10 md:py-8;
+}
+
+@utility modal-footer {
+  @apply flex justify-end gap-4 md:px-6 md:pt-2;
+}
+
+@utility modal-footer-button {
+  @apply body-14 md:body-16 h-9 px-4 font-normal md:h-10 md:px-6;
+}
+
+*:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+@utility scrollbar-thin {
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-gray-200;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  scrollbar-width: thin;
+}
+
+.rdp-custom {
+  --rdp-day-width: 34px;
+  --rdp-day-height: 34px;
+  --rdp-day_button-width: 30px;
+  --rdp-day_button-height: 30px;
+  --rdp-nav_button-width: 28px;
+  --rdp-nav_button-height: 28px;
+  --rdp-months-gap: 1.25rem;
+  --rdp-weekday-padding: 0.25rem 0;
+  font-size: 14px;
+  --rdp-accent-color: var(--color-fill-brand) !important;
+  --rdp-accent-color-foreground: var(--color-text-main) !important;
+  --rdp-outline: 2px solid var(--color-fill-brand) !important;
+  --rdp-range_start-background: linear-gradient(
+    var(--rdp-gradient-direction),
+    transparent 50%,
+    var(--color-fill-brand-soft) 50%
+  ) !important;
+  --rdp-range_end-background: linear-gradient(
+    var(--rdp-gradient-direction),
+    var(--color-fill-brand-soft) 50%,
+    transparent 50%
+  ) !important;
+}
+
+/* the library hardcodes `font-size: large` on selected days, which ignores the size above */
+.rdp-custom .rdp-selected {
+  font-size: inherit;
+}
+
+.rdp-custom .rdp-month_caption {
+  font-size: 1.15em;
+}
+
+.rdp-custom .rdp-month + .rdp-month {
+  border-left: 1px solid var(--color-border-soft);
+  padding-left: 1.25rem;
+}
+
+.rdp-custom .rdp-day_button:hover:not([disabled]):not(.rdp-selected) {
+  background-color: var(--color-fill-brand-soft) !important;
+  color: var(--color-text-brand) !important;
+}
+
+.rdp-custom .rdp-range_middle {
+  background-color: var(--color-fill-brand-soft) !important;
+  color: var(--color-text-brand) !important;
+  font-weight: 400;
+}
+
+.rdp-custom .rdp-today {
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  body:has(.product-order-form-mobile) footer {
+    padding-bottom: 248px !important;
+  }
+}

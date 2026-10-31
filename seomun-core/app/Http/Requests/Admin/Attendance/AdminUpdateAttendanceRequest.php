@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Requests\Admin\Attendance;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class AdminUpdateAttendanceRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'check_in'  => 'nullable|date_format:H:i',
+            'check_out' => 'nullable|date_format:H:i',
+            'status'    => 'nullable|string|in:present,absent,late,half_day,vacation',
+            'notes'     => 'nullable|string',
+        ];
+    }
+}

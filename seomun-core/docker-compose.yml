@@ -1,0 +1,106 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: seomun_app
+    restart: unless-stopped
+    working_dir: /var/www
+    ports:
+      - "8002:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - .:/var/www
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - seomun
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: seomun_queue
+    restart: unless-stopped
+    working_dir: /var/www
+    command: php -d memory_limit=512M artisan queue:work --queue=default,export --memory=512 --timeout=600 --tries=1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - .:/var/www
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - seomun
+
+  reverb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: seomun_reverb
+    restart: unless-stopped
+    working_dir: /var/www
+    environment:
+      # Reverb restart signals must not depend on the host's MySQL.
+      CACHE_STORE: file
+      # Ignore app/queue's shared config cache, which may select database cache.
+      APP_CONFIG_CACHE: /tmp/seomun-reverb-config.php
+    command: php artisan reverb:start --host=0.0.0.0 --port=8080
+    ports:
+      - "127.0.0.1:8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - .:/var/www
+    networks:
+      - seomun
+
+  redis:
+    image: redis:7-alpine
+    container_name: seomun_redis
+    restart: unless-stopped
+    command: redis-server --requirepass 123456
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - seomun
+
+  mysql:
+    image: mysql:8.0
+    container_name: seomun_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: seomun_core
+      MYSQL_USER: seomun_local
+      MYSQL_PASSWORD: seomun_local_password
+      MYSQL_ROOT_PASSWORD: seomun_local_root_password
+    ports:
+      - "3312:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../document/dump-seomun_core-202608121049.sql:/docker-entrypoint-initdb.d/001-seomun_core.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    networks:
+      - seomun
+
+
+networks:
+  seomun:
+    driver: bridge
+
+volumes:
+  redis_data:
+  mysql_data:

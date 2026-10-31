@@ -1,0 +1,565 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/noto-sans';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: var(--font-noto-sans);
+  --font-noto-sans: 'Noto Sans Variable', sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: #192830;
+  --card: oklch(1 0 0);
+  --card-foreground: #192830;
+  --popover: oklch(1 0 0);
+  --popover-foreground: #192830;
+  --primary: #f5bf20;
+  --primary-foreground: #ffffff;
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: #192830;
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: #64748b;
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: #192830;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: #192830;
+  --sidebar-primary: #f5bf20;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: #192830;
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* Keep the main workspace light while using the brand palette in the sidebar. */
+.app-sidebar-dark {
+  --sidebar: #2b3a46;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #f5bf20;
+  --sidebar-primary-foreground: #192830;
+  --sidebar-accent: #354958;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: rgb(248 250 252 / 12%);
+  --sidebar-ring: #f5bf20;
+  color: var(--sidebar-foreground);
+}
+
+/* Title */
+@utility title-40 {
+  @apply font-noto-sans text-[40px] leading-[48px] font-bold;
+}
+
+@utility title-32 {
+  @apply font-noto-sans text-[32px] leading-[40px] font-bold;
+}
+
+@utility title-24 {
+  @apply font-noto-sans text-[24px] leading-[32px] font-semibold;
+}
+
+@utility title-20 {
+  @apply font-noto-sans text-[20px] leading-[28px] font-semibold;
+}
+
+@utility title-18 {
+  @apply font-noto-sans text-[18px] leading-[24px] font-semibold;
+}
+
+@utility title-16 {
+  @apply font-noto-sans text-[16px] leading-[20px] font-medium;
+}
+
+@utility title-14 {
+  @apply font-noto-sans text-[14px] leading-[20px] font-semibold;
+}
+
+/* Body */
+@utility body-18 {
+  @apply font-noto-sans text-[18px] leading-[28px] font-normal;
+}
+
+@utility body-16 {
+  @apply font-noto-sans text-[16px] leading-[24px] font-normal;
+}
+
+@utility body-14 {
+  @apply font-noto-sans text-[14px] leading-[20px] font-normal;
+}
+
+/* Button */
+@utility button-15 {
+  @apply font-noto-sans text-[15px] leading-[20px] font-semibold;
+}
+
+@utility button-13 {
+  @apply font-noto-sans text-[13px] leading-[20px] font-medium;
+}
+
+/* Input */
+@utility input-15 {
+  @apply font-noto-sans text-[15px] leading-[20px] font-normal;
+}
+
+/* Caption */
+@utility caption-12 {
+  @apply font-noto-sans text-[12px] leading-[16px] font-normal;
+}
+
+/* Scroll */
+@utility scrollbar-slim {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--muted-foreground) 30%, transparent) transparent;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+
+  /* Safari < 18.2 ignores scrollbar-width/color. */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: color-mix(in oklch, var(--muted-foreground) 30%, transparent);
+  }
+
+  &:hover {
+    scrollbar-color: color-mix(in oklch, var(--muted-foreground) 55%, transparent) transparent;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--muted-foreground) 55%, transparent);
+  }
+}
+
+@utility global-padding {
+  @apply mx-auto w-full max-w-[1440px] px-4 md:px-8;
+}
+
+@utility point-40 {
+  @apply font-noto-sans text-[40px] leading-[130%] font-extrabold;
+}
+
+@utility point-32 {
+  @apply font-noto-sans text-[32px] leading-[130%] font-extrabold;
+}
+
+@utility point-24 {
+  @apply font-noto-sans text-[24px] leading-[130%] font-bold;
+}
+
+@utility point-20 {
+  @apply font-noto-sans text-[20px] leading-[130%] font-semibold;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground overflow-hidden leading-normal font-normal;
+  }
+
+  html {
+    @apply font-noto-sans;
+  }
+}
+
+@layer components {
+  /*
+   * Pages holding a data table fit the viewport on desktop: the page header and filters stay
+   * in place and only the table scrolls.
+   */
+  @media (width >= 64rem) {
+    [data-slot='page-container']:has([data-slot='data-table']) {
+      height: 100%;
+    }
+
+    [data-slot='page-container'] :has([data-slot='data-table']) {
+      display: flex;
+      flex: 1 1 0%;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    /* Flex columns stretch children; keep inline-sized ones (e.g. tab switchers) at their own width. */
+    [data-slot='page-container'] :has([data-slot='data-table']) > :is(.inline-flex, .inline-block, .inline-grid) {
+      align-self: flex-start;
+    }
+  }
+
+  .app-rich-text-editor__content {
+    @apply cursor-text;
+  }
+
+  .app-rich-text-editor__content .tiptap {
+    @apply px-4 py-3 text-sm leading-6 outline-none;
+    min-height: inherit;
+  }
+
+  .app-rich-text-editor__content .tiptap > * + * {
+    @apply mt-3;
+  }
+
+  .app-rich-text-editor__content .tiptap h1 {
+    @apply text-2xl leading-8 font-semibold;
+  }
+
+  .app-rich-text-editor__content .tiptap h2 {
+    @apply text-xl leading-7 font-semibold;
+  }
+
+  .app-rich-text-editor__content .tiptap h3 {
+    @apply text-lg leading-6 font-semibold;
+  }
+
+  .app-rich-text-editor__content .tiptap ul {
+    @apply list-disc pl-6;
+  }
+
+  .app-rich-text-editor__content .tiptap ol {
+    @apply list-decimal pl-6;
+  }
+
+  .app-rich-text-editor__content .tiptap blockquote {
+    @apply border-muted-foreground/30 text-muted-foreground border-l-4 pl-4 italic;
+  }
+
+  .app-rich-text-editor__content .tiptap code {
+    @apply bg-muted rounded px-1 py-0.5 font-mono text-[0.875em];
+  }
+
+  .app-rich-text-editor__content .tiptap pre {
+    @apply bg-muted overflow-x-auto rounded-lg p-3;
+  }
+
+  .app-rich-text-editor__content .tiptap pre code {
+    @apply bg-transparent p-0;
+  }
+
+  /* mx-auto centers a shortened rule; data-align (left/right) pins it to one side. */
+  .app-rich-text-editor__content .tiptap hr {
+    @apply border-border mx-auto my-4;
+  }
+
+  .app-rich-text-editor__content .tiptap hr[data-align='left'] {
+    @apply ml-0;
+  }
+
+  .app-rich-text-editor__content .tiptap hr[data-align='right'] {
+    @apply mr-0;
+  }
+
+  .app-rich-text-editor__content .tiptap[contenteditable='true'] hr {
+    @apply my-2.5 cursor-pointer rounded-sm border-0;
+    /* --hr-thickness is set per rule by the node view (thickness attribute). */
+    height: max(13px, calc(var(--hr-thickness, 1px) + 8px));
+    background: linear-gradient(var(--border), var(--border)) center / 100% var(--hr-thickness, 1px) no-repeat;
+  }
+
+  .app-rich-text-editor__content .tiptap a {
+    @apply text-primary underline underline-offset-2;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-container] {
+    @apply my-1 max-w-full px-1 align-bottom;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-container].ProseMirror-selectednode,
+  .app-rich-text-editor__content .tiptap [data-resize-container]:has(img.ProseMirror-selectednode) {
+    @apply ring-primary/70 rounded-lg ring-2 ring-offset-2;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-wrapper] {
+    @apply inline-block max-w-full;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-wrapper]:has(img.ProseMirror-selectednode) {
+    @apply ring-primary rounded-lg ring-2;
+  }
+
+  .app-rich-text-editor__content .tiptap img {
+    @apply inline-block max-w-full rounded-lg border align-bottom;
+  }
+
+  .app-rich-text-editor__content .tiptap p > img {
+    @apply my-1 mr-2;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-handle] {
+    @apply border-primary bg-background absolute z-10 size-3 rounded-full border-2;
+    transform: translate(50%, 50%);
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-handle='top-left'],
+  .app-rich-text-editor__content .tiptap [data-resize-handle='bottom-right'] {
+    cursor: nwse-resize;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-handle='top-right'],
+  .app-rich-text-editor__content .tiptap [data-resize-handle='bottom-left'] {
+    cursor: nesw-resize;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-handle='left'],
+  .app-rich-text-editor__content .tiptap [data-resize-handle='right'] {
+    cursor: ew-resize;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-handle='top'],
+  .app-rich-text-editor__content .tiptap [data-resize-handle='bottom'] {
+    cursor: ns-resize;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-handle*='left'] {
+    transform: translate(-50%, 50%);
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-handle*='top'] {
+    transform: translate(50%, -50%);
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-handle*='top'][data-resize-handle*='left'] {
+    transform: translate(-50%, -50%);
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-container][data-node='horizontalRule'] {
+    @apply mx-0 my-2.5 w-full justify-center px-0;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-node='horizontalRule'] hr {
+    @apply my-0;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-node='horizontalRule'] [data-resize-handle] {
+    @apply my-auto;
+  }
+
+  .app-rich-text-editor__content .tiptap [data-node='horizontalRule'] [data-resize-handle='left'] {
+    transform: translateX(-50%);
+  }
+
+  .app-rich-text-editor__content .tiptap [data-node='horizontalRule'] [data-resize-handle='right'] {
+    transform: translateX(50%);
+  }
+
+  .app-rich-text-editor__content .tiptap [data-resize-container][data-resize-state='true'] img {
+    @apply ring-primary ring-2;
+  }
+
+  .app-rich-text-editor__content .tiptap img.ProseMirror-selectednode {
+    @apply ring-primary ring-2;
+  }
+
+  .app-rich-text-editor__content .tiptap .tableWrapper {
+    @apply overflow-x-auto;
+  }
+
+  .app-rich-text-editor__content .tiptap table {
+    @apply w-full table-fixed border-collapse;
+  }
+
+  .app-rich-text-editor__content .tiptap th,
+  .app-rich-text-editor__content .tiptap td {
+    @apply border px-3 py-2 align-top;
+  }
+
+  .app-rich-text-editor__content .tiptap th {
+    @apply bg-muted font-semibold;
+  }
+
+  /* "Hide table border": invisible in preview, faint dashed guide while editing. */
+  .app-rich-text-editor__content .tiptap table[data-borderless] :is(th, td) {
+    @apply border-transparent;
+  }
+
+  .app-rich-text-editor__content .tiptap[contenteditable='true'] table[data-borderless] :is(th, td) {
+    @apply border-border border-dashed;
+  }
+
+  /* Hidden cell borders (cell border menu): saved HTML hides them with inline border-*-style: hidden;
+     while editing they show as dashed guides (!important beats that inline style). Both cells sharing an
+     edge are updated together, so the collapsed edge resolves to dashed too. */
+  .app-rich-text-editor__content .tiptap[contenteditable='true'] :is(td, th)[data-hidden-borders~='top'] {
+    border-top-style: dashed !important;
+  }
+
+  .app-rich-text-editor__content .tiptap[contenteditable='true'] :is(td, th)[data-hidden-borders~='right'] {
+    border-right-style: dashed !important;
+  }
+
+  .app-rich-text-editor__content .tiptap[contenteditable='true'] :is(td, th)[data-hidden-borders~='bottom'] {
+    border-bottom-style: dashed !important;
+  }
+
+  .app-rich-text-editor__content .tiptap[contenteditable='true'] :is(td, th)[data-hidden-borders~='left'] {
+    border-left-style: dashed !important;
+  }
+
+  .app-rich-text-editor__content .tiptap .selectedCell::after {
+    @apply bg-primary/15 pointer-events-none absolute inset-0 content-[''];
+  }
+
+  .app-rich-text-editor__content .tiptap .selection {
+    @apply bg-blue-500/25;
+  }
+
+  .app-rich-text-editor__content .tiptap .selectedCell {
+    @apply relative;
+  }
+
+  .app-rich-text-editor__content .tiptap p.is-editor-empty:first-child::before {
+    @apply text-muted-foreground pointer-events-none float-left h-0;
+    content: attr(data-placeholder);
+  }
+
+  /* Image figure (rich-text-figure.extension.ts): image row + caption as one block, aligned as a whole.
+     Saved HTML is figure > (row, figcaption); the editor wraps them in an extra div next to the grip,
+     so these rules avoid child combinators between figure and its parts. */
+  .app-rich-text-editor__content .tiptap figure {
+    @apply relative m-0;
+  }
+
+  .app-rich-text-editor__content .tiptap figure[data-align='left'] {
+    @apply text-left;
+  }
+
+  .app-rich-text-editor__content .tiptap figure[data-align='center'] {
+    @apply text-center;
+  }
+
+  .app-rich-text-editor__content .tiptap figure[data-align='right'] {
+    @apply text-right;
+  }
+
+  /* Preview (raw <img>): same even spacing the editor's image boxes get from their padding, so a centered row stays centered. */
+  .app-rich-text-editor__content .tiptap [data-image-row] > img {
+    @apply mx-1 my-1;
+  }
+
+  .app-rich-text-editor__content .tiptap figcaption {
+    @apply text-muted-foreground text-xs leading-5;
+  }
+
+  /* The caption hugs the row, on whichever side it is. */
+  .app-rich-text-editor__content .tiptap [data-image-row] + figcaption,
+  .app-rich-text-editor__content .tiptap figcaption + [data-image-row] {
+    @apply mt-1;
+  }
+
+  /* Hint on an empty caption while editing. ProseMirror renders an empty textblock as a lone trailing <br>;
+     a zero-height block (not float-left) so the hint follows the figure's alignment. */
+  .app-rich-text-editor__content .tiptap[contenteditable='true'] figcaption:has(> br.ProseMirror-trailingBreak:only-child)::before {
+    @apply text-muted-foreground/60 pointer-events-none block h-0;
+    content: 'Image caption';
+  }
+
+  /* Editor-only grip in the left gutter: drag to move the figure, click to select it. */
+  .app-rich-text-editor__content .tiptap figure > [data-drag-handle] {
+    @apply text-muted-foreground hover:text-foreground absolute top-0 -left-4 flex h-6 w-4 cursor-grab items-center justify-center opacity-0 transition-opacity;
+  }
+
+  .app-rich-text-editor__content .tiptap figure:hover > [data-drag-handle],
+  .app-rich-text-editor__content .tiptap figure.ProseMirror-selectednode > [data-drag-handle] {
+    @apply opacity-100;
+  }
+
+  .app-rich-text-editor__content .tiptap figure.ProseMirror-selectednode {
+    @apply ring-primary/70 rounded-lg ring-2 ring-offset-2;
+  }
+}

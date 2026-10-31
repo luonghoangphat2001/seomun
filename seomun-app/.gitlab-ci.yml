@@ -1,0 +1,111 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  IMAGE_NAME: seomun-app
+  IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+  CONTAINER_NAME: seomun-app
+
+# =========================
+# Build Develop
+# =========================
+
+build-develop:
+  stage: build
+  tags:
+    - seomun-app
+  timeout: 20m
+
+  before_script:
+    - cd "$CI_PROJECT_DIR"
+    - echo "📋 Using develop env file..."
+    - cp "$ENV_FILE" .env
+    - docker info
+
+  script:
+    - echo "🔨 Building develop Docker image..."
+    - docker compose build
+
+  only:
+    - develop
+
+
+# =========================
+# Build Production
+# =========================
+
+build-production:
+  stage: build
+  tags:
+    - seomun
+  timeout: 20m
+
+  before_script:
+    - cd "$CI_PROJECT_DIR"
+    - echo "📋 Using production env file..."
+    - cp "$ENV_FILE_PROD" .env
+    - docker info
+
+  script:
+    - echo "🔨 Building production Docker image..."
+    - docker compose build
+
+  only:
+    - production
+
+
+# =========================
+# Deploy Develop
+# =========================
+
+deploy-develop:
+  stage: deploy
+  tags:
+    - seomun-app
+  timeout: 15m
+
+  before_script:
+    - cd "$CI_PROJECT_DIR"
+    - echo "📋 Using develop env file..."
+    - cp "$ENV_FILE" .env
+    - docker info
+
+  script:
+    - echo "🚀 Deploying develop..."
+    - docker compose down || true
+    - docker compose up -d
+    - docker ps | grep "$CONTAINER_NAME" || true
+    - docker image prune -f --filter "dangling=true"
+    - echo "✅ Develop deployed successfully!"
+
+  only:
+    - develop
+
+
+# =========================
+# Deploy Production
+# =========================
+
+deploy-production:
+  stage: deploy
+  tags:
+    - seomun
+  timeout: 15m
+
+  before_script:
+    - cd "$CI_PROJECT_DIR"
+    - echo "📋 Using production env file..."
+    - cp "$ENV_FILE_PROD" .env
+    - docker info
+
+  script:
+    - echo "🚀 Deploying production..."
+    - docker compose down || true
+    - docker compose up -d
+    - docker ps | grep "$CONTAINER_NAME" || true
+    - docker image prune -f --filter "dangling=true"
+    - echo "✅ Production deployed successfully!"
+
+  only:
+    - production

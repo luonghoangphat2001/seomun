@@ -1,0 +1,10 @@
+export enum BANK {
+  IBK = 'IBK',
+  KOOKMIN = 'KOOKMIN',
+  NONGHYUP = 'NONGHYUP',
+  WOORI = 'WOORI',
+  DAEGU = 'DAEGU',
+  BUSAN = 'BUSAN',
+  HANA = 'HANA',
+  SHINHAN = 'SHINHAN',
+}

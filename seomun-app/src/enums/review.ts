@@ -1,0 +1,4 @@
+export enum MY_REVIEW_TAB {
+  ORDER_LIST = 'ORDER_LIST',
+  MY_REVIEW = 'MY_REVIEW',
+}

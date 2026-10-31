@@ -1,0 +1,5 @@
+import { Outlet, createFileRoute } from '@tanstack/react-router';
+
+export const Route = createFileRoute('/system-content/images/$imageId')({
+  component: () => <Outlet />,
+});

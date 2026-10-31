@@ -1,0 +1,95 @@
+import { format } from 'date-fns';
+import { Search } from 'lucide-react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { AppDateRangePicker } from '@/components/shared/app-date-range-picker';
+import { AppInput } from '@/components/shared/app-input';
+import { AppSelect } from '@/components/shared/app-select';
+import { AppSearchFilter, AppSearchFilterField } from '@/components/shared/app-search-filter';
+
+import { getTaxInvoiceIssueStatusOptions } from '../constants';
+import { TaxInvoiceTab } from '../enums';
+import type { TaxInvoiceSearchFilterValues } from '../schemas';
+
+type TaxInvoiceSearchFiltersProps = {
+  initialValues: TaxInvoiceSearchFilterValues;
+  mode: TaxInvoiceTab;
+  onSearch: (values: TaxInvoiceSearchFilterValues) => void;
+  onReset: () => void;
+};
+
+export function TaxInvoiceSearchFilters({ initialValues, mode, onSearch, onReset }: TaxInvoiceSearchFiltersProps) {
+  const { t } = useTranslation('page');
+
+  const [orderNumber, setOrderNumber] = useState(initialValues.order_number ?? '');
+  const [issueStatus, setIssueStatus] = useState<TaxInvoiceSearchFilterValues['issue_status']>(initialValues.issue_status);
+  const [isGenerated, setIsGenerated] = useState<TaxInvoiceSearchFilterValues['is_generated']>(initialValues.is_generated);
+  const [dateRange, setDateRange] = useState<{ from?: number; to?: number } | undefined>(
+    initialValues.date_from || initialValues.date_to
+      ? {
+          from: initialValues.date_from ? new Date(initialValues.date_from).getTime() : undefined,
+          to: initialValues.date_to ? new Date(initialValues.date_to).getTime() : undefined,
+        }
+      : undefined,
+  );
+
+  const statusOptions = getTaxInvoiceIssueStatusOptions(t);
+  const isOriginalMode = mode === TaxInvoiceTab.ORIGINAL;
+
+  const handleSearch = () => {
+    onSearch({
+      order_code: undefined,
+      order_number: orderNumber.trim() || undefined,
+      issue_status: isOriginalMode ? undefined : issueStatus,
+      is_generated: isOriginalMode ? isGenerated : undefined,
+      date_from: dateRange?.from ? format(new Date(dateRange.from), 'yyyy-MM-dd') : undefined,
+      date_to: dateRange?.to ? format(new Date(dateRange.to), 'yyyy-MM-dd') : undefined,
+    });
+  };
+
+  const handleReset = () => {
+    setOrderNumber('');
+    setIssueStatus(undefined);
+    setIsGenerated(undefined);
+    setDateRange(undefined);
+    onReset();
+  };
+
+  return (
+    <AppSearchFilter onSearch={handleSearch} onReset={handleReset}>
+      <AppSearchFilterField label={t('orders.tax_invoices.filters.order_number')} htmlFor='tax-invoice-order-number'>
+        <AppInput
+          id='tax-invoice-order-number'
+          placeholder={t('orders.tax_invoices.filters.order_number_placeholder')}
+          value={orderNumber}
+          onValueChange={setOrderNumber}
+          clearable
+          prefix={<Search className='size-4' />}
+        />
+      </AppSearchFilterField>
+
+      {!isOriginalMode ? (
+        <AppSearchFilterField label={t('orders.tax_invoices.filters.issue_status')} htmlFor='tax-invoice-status'>
+          <AppSelect
+            id='tax-invoice-status'
+            value={issueStatus}
+            onValueChange={(value) => setIssueStatus(value)}
+            options={statusOptions}
+            placeholder={t('orders.tax_invoices.filters.all_statuses')}
+            clearable
+          />
+        </AppSearchFilterField>
+      ) : null}
+
+      <AppSearchFilterField label={t('orders.tax_invoices.filters.date_range')} htmlFor='tax-invoice-date-range' wide>
+        <AppDateRangePicker
+          value={dateRange}
+          onChange={setDateRange}
+          placeholder={t('orders.tax_invoices.filters.date_range_placeholder')}
+          allowClear
+        />
+      </AppSearchFilterField>
+    </AppSearchFilter>
+  );
+}

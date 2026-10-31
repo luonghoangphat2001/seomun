@@ -1,0 +1,25 @@
+# Dependencies
+**/node_modules/
+**/vendor/
+
+# Environment and sensitive keys
+**/*.pem
+**/*.key
+**/.env
+**/.env.local
+**/.env.*.local
+**/.env.prod
+!**/.env.example
+!**/.env.sample
+
+# Git local backups
+**/.git_wala/
+.playwright-mcp/
+
+# Build and cache
+**/dist/
+**/build/
+**/.next/
+**/.cache/
+**/.DS_Store
+*.log

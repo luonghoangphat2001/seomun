@@ -1,0 +1,63 @@
+stages:
+  - deploy
+
+variables:
+  APP_DIR: "/var/www/seomun-core"
+
+# --- DEPLOY PRODUCTION ---
+deploy_production:
+  stage: deploy
+
+  only:
+    - production
+
+  tags:
+    - seomun
+
+  script:
+    - echo "Deploy started..."
+
+    - cd $APP_DIR
+
+    - git checkout -- storage/api-docs/api-docs.yaml || true
+    - sudo rm -f storage/api-docs/api-docs.yaml || rm -f storage/api-docs/api-docs.yaml || true
+    - git clean -f -x -- storage/api-docs/api-docs.yaml || true
+
+    - git pull origin production
+
+    - docker compose up -d --build app queue
+
+    - docker compose exec -T app php artisan migrate --force
+
+    - docker compose exec -T app php artisan storage:link || true
+
+    - docker compose exec -T app php artisan swagger:generate
+
+    - docker compose exec -T app php artisan optimize:clear
+
+    - docker compose exec -T app php artisan cache:clear
+
+    - docker compose exec -T app php artisan queue:restart
+
+    - echo "Deploy completed."
+
+# --- DEPLOY DEV ---
+deploy_dev:
+  stage: deploy
+  only:
+    - develop
+  tags:
+    - seomun-dev
+  script:
+    - echo "Deploying to Dev..."
+    - cd $APP_DIR
+    - git checkout -- storage/api-docs/api-docs.yaml || true
+    - sudo rm -f storage/api-docs/api-docs.yaml || rm -f storage/api-docs/api-docs.yaml || true
+    - git clean -f -x -- storage/api-docs/api-docs.yaml || true
+    - git pull origin develop
+    - php artisan migrate --force
+    - php artisan storage:link || true
+    - php artisan swagger:generate
+    - php artisan optimize:clear
+    - php artisan queue:restart
+    - echo "Dev Deploy completed."

@@ -1,0 +1,6 @@
+export enum CashReceiptPeriod {
+  SIX_MONTHS = 'SIX_MONTHS',
+  ONE_YEAR = 'ONE_YEAR',
+  TWO_YEARS = 'TWO_YEARS',
+  THREE_YEARS = 'THREE_YEARS',
+}

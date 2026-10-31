@@ -1,0 +1,11 @@
+services:
+  seomun-app:
+    build:
+      context: .
+    image: seomun-app:latest
+    container_name: seomun-app
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env

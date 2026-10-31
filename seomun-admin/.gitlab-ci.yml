@@ -1,0 +1,113 @@
+stages:
+  - quality
+  - build
+  - deploy
+
+variables:
+  CONTAINER_NAME: seomun-admin
+
+before_script:
+  - export NVM_DIR="$HOME/.nvm"
+  - |
+    if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+    fi
+  - . "$NVM_DIR/nvm.sh"
+  - nvm install 20 >/dev/null
+  - nvm use 20
+  - node -v
+  - npm install -g yarn
+  - yarn -v
+
+cache:
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - node_modules/
+  policy: pull
+
+# =========================
+# Build Develop
+# =========================
+
+build-develop:
+  stage: build
+  tags:
+    - seomun-admin
+  timeout: 20m
+
+  script:
+    - echo "📋 Copying develop env..."
+    - cp "$ENV_FILE" .env
+
+    - echo "🔨 Building develop Docker image..."
+    - docker compose build
+
+  only:
+    - develop
+
+
+# =========================
+# Build Production
+# =========================
+
+build-production:
+  stage: build
+  tags:
+    - seomun
+  timeout: 20m
+
+  script:
+    - echo "📋 Copying production env..."
+    - cp "$ENV_FILE_PROD" .env
+
+    - echo "🔨 Building production Docker image..."
+    - docker compose build
+
+  only:
+    - production
+
+
+# =========================
+# Deploy Develop
+# =========================
+
+deploy-develop:
+  stage: deploy
+  tags:
+    - seomun-admin
+  timeout: 15m
+
+  script:
+    - echo "🚀 Deploying develop..."
+    - docker compose down || true
+    - docker compose up -d
+    - docker ps | grep "$CONTAINER_NAME" || true
+    - docker image prune -f --filter "dangling=true"
+    - echo "✅ Develop deployed successfully!"
+
+  only:
+    - develop
+
+
+# =========================
+# Deploy Production
+# =========================
+
+deploy-production:
+  stage: deploy
+  tags:
+    - seomun
+  timeout: 15m
+
+  script:
+    - echo "🚀 Deploying production..."
+    - docker compose down || true
+    - docker compose up -d
+    - docker ps | grep "$CONTAINER_NAME" || true
+    - docker image prune -f --filter "dangling=true"
+    - echo "✅ Production deployed successfully!"
+
+  only:
+    - production

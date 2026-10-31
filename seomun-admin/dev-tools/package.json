@@ -1,0 +1,15 @@
+{
+  "name": "dev-tools",
+  "private": true,
+  "version": "0.0.1",
+  "type": "commonjs",
+  "scripts": {
+    "gen-lang": "npx @megabeedev/js-locale-sheet-loader"
+  },
+  "devDependencies": {
+    "@megabeedev/js-locale-sheet-loader": "^1.0.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

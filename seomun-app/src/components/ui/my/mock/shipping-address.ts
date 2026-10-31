@@ -1,0 +1,75 @@
+import { ShippingAddressType } from '@/types';
+
+export const SHIPPING_ADDRESS_DUMP: ShippingAddressType[] = [
+  {
+    id: 1,
+    deliveryAddress: '남산사업자명',
+    recipient: '홍길동',
+    address: '[0000]서울 마포구 동교로 171 0 아무주소나 테스트 1230',
+    phone: '010-0000-0000',
+  },
+  {
+    id: 2,
+    deliveryAddress: '강남사업자명',
+    recipient: '김철수',
+    address: '[0601]서울 강남구 테헤란로 521 0 아무주소나 테스트 4560',
+    phone: '010-1234-5678',
+    isDefault: true,
+  },
+  {
+    id: 3,
+    deliveryAddress: '홍대사업자명',
+    recipient: '이영희',
+    address: '[0402]서울 마포구 홍익로 20 0 아무주소나 테스트 7890',
+    phone: '010-9876-5432',
+  },
+  {
+    id: 4,
+    deliveryAddress: '잠실사업자명',
+    recipient: '박민준',
+    address: '[0512]서울 송파구 올림픽로 240 0 아무주소나 테스트 1120',
+    phone: '010-2345-6789',
+  },
+  {
+    id: 5,
+    deliveryAddress: '신촌사업자명',
+    recipient: '최수진',
+    address: '[0301]서울 서대문구 신촌로 83 0 아무주소나 테스트 3340',
+    phone: '010-3456-7890',
+  },
+  {
+    id: 6,
+    deliveryAddress: '여의도사업자명',
+    recipient: '정우성',
+    address: '[0715]서울 영등포구 여의대로 108 0 아무주소나 테스트 5560',
+    phone: '010-4567-8901',
+  },
+  {
+    id: 7,
+    deliveryAddress: '이태원사업자명',
+    recipient: '한지민',
+    address: '[0820]서울 용산구 이태원로 177 0 아무주소나 테스트 6670',
+    phone: '010-5678-9012',
+  },
+  {
+    id: 8,
+    deliveryAddress: '종로사업자명',
+    recipient: '오세훈',
+    address: '[0110]서울 종로구 종로 1 0 아무주소나 테스트 8880',
+    phone: '010-6789-0123',
+  },
+  {
+    id: 9,
+    deliveryAddress: '성수사업자명',
+    recipient: '임윤아',
+    address: '[0933]서울 성동구 성수이로 78 0 아무주소나 테스트 9990',
+    phone: '010-7890-1234',
+  },
+  {
+    id: 10,
+    deliveryAddress: '건대사업자명',
+    recipient: '강동원',
+    address: '[1045]서울 광진구 능동로 120 0 아무주소나 테스트 2210',
+    phone: '010-8901-2345',
+  },
+];
